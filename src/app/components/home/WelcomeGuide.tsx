@@ -14,7 +14,7 @@ export function WelcomeGuide({ onClose }: WelcomeGuideProps) {
             <div className="flex items-center space-x-3 text-white">
               <Shield className="w-8 h-8" />
               <div>
-                <h2 className="text-2xl font-bold">Welcome to VacciTrack!</h2>
+                <h2 className="text-2xl font-bold">Welcome to VacciCare!</h2>
                 <p className="text-blue-100 text-sm">Your family's vaccination guardian</p>
               </div>
             </div>
@@ -27,7 +27,7 @@ export function WelcomeGuide({ onClose }: WelcomeGuideProps) {
         <div className="p-6 space-y-6">
           <div className="bg-blue-50 border border-blue-200 p-4 rounded-lg">
             <p className="text-sm text-blue-800">
-              VacciTrack helps you manage your family's vaccinations based on the Indian Universal Immunization Programme. All data is stored securely on your device.
+              VacciCare helps you manage your family's vaccinations based on the Indian Universal Immunization Programme. All data is stored securely on your device.
             </p>
           </div>
 
@@ -127,7 +127,7 @@ export function WelcomeGuide({ onClose }: WelcomeGuideProps) {
 
           <div className="bg-yellow-50 border border-yellow-200 p-4 rounded-lg">
             <p className="text-sm text-yellow-800">
-              <strong>Important:</strong> VacciTrack is a tracking tool. Always consult your pediatrician for medical advice and before making vaccination decisions.
+              <strong>Important:</strong> VacciCare is a tracking tool. Always consult your pediatrician for medical advice and before making vaccination decisions.
             </p>
           </div>
 

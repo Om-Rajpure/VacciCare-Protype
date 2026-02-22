@@ -21,7 +21,7 @@ export function RoleSelection({ onComplete }: RoleSelectionProps) {
             <User className="w-8 h-8 text-white" />
           </div>
           <h1 className="text-3xl font-bold text-gray-800 mb-2">Select Your Role</h1>
-          <p className="text-gray-600">Choose how you want to use VacciTrack</p>
+          <p className="text-gray-600">Choose how you want to use VacciCare</p>
         </div>
 
         <div className="space-y-4">

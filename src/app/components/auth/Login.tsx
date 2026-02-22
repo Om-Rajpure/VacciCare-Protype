@@ -37,7 +37,7 @@ export function Login({ onSwitchToSignup, onLoginSuccess }: LoginProps) {
           <div className="inline-flex items-center justify-center w-16 h-16 bg-blue-100 rounded-full mb-4">
             <Shield className="w-8 h-8 text-blue-600" />
           </div>
-          <h1 className="text-3xl font-bold text-gray-800 mb-2">VacciTrack</h1>
+          <h1 className="text-3xl font-bold text-gray-800 mb-2">VacciCare</h1>
           <p className="text-gray-600">Your Family's Health Guardian</p>
         </div>
 

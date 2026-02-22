@@ -94,7 +94,7 @@ export default function ProfileScreen() {
               </div>
               <div className="text-right">
                 <p className="text-blue-200 text-[9px]">Issued by</p>
-                <p className="text-white text-[10px] font-semibold">VacciTrack Platform</p>
+                <p className="text-white text-[10px] font-semibold">VacciCare Platform</p>
               </div>
             </div>
           </div>
@@ -206,7 +206,7 @@ export default function ProfileScreen() {
 
         {/* App Info */}
         <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.6 }} className="bg-white rounded-2xl shadow-sm p-4 mb-4 text-center border border-gray-50">
-          <p className="text-gray-500 text-sm font-medium">VacciTrack v2.0</p>
+          <p className="text-gray-500 text-sm font-medium">VacciCare v2.0</p>
           <p className="text-xs text-gray-400">Smart Family Immunization Compliance Platform</p>
           <p className="text-xs text-gray-400 mt-0.5">Made with ❤️ for Indian families</p>
         </motion.div>

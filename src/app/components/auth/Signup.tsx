@@ -76,7 +76,7 @@ export function Signup({ onSwitchToLogin, onSignupSuccess }: SignupProps) {
             <Shield className="w-8 h-8 text-green-600" />
           </div>
           <h1 className="text-3xl font-bold text-gray-800 mb-2">Create Account</h1>
-          <p className="text-gray-600">Join VacciTrack to protect your family</p>
+          <p className="text-gray-600">Join VacciCare to protect your family</p>
         </div>
 
         <form onSubmit={handleSubmit} className="space-y-4">

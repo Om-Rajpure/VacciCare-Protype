@@ -27,13 +27,13 @@ function App() {
   const [showAddMember, setShowAddMember] = useState(false);
   const [showWelcome, setShowWelcome] = useState(false);
   const [notificationPermission, setNotificationPermission] = useState<NotificationPermission>('default');
-  
+
   const currentUser = useStore(state => state.currentUser);
   const checkMissedVaccines = useStore(state => state.checkMissedVaccines);
   const selectedMemberId = useStore(state => state.selectedMemberId);
   const allFamilyMembers = useStore(state => state.familyMembers);
   const logout = useStore(state => state.logout);
-  
+
   // Memoize filtered family members to prevent unnecessary re-renders
   const familyMembers = useMemo(() => {
     return allFamilyMembers.filter(m => m.userId === currentUser?.id);
@@ -125,41 +125,43 @@ function App() {
   return (
     <div className="min-h-screen bg-[#F7FBFF] pb-24">
       {/* Header */}
-      <header className="bg-gradient-to-r from-[#2EC4B6] to-[#4CC9F0] shadow-lg rounded-b-[2rem] relative z-10">
-        <div className="container mx-auto px-4 py-6">
+      <header className="bg-white border-b border-gray-100 shadow-sm relative z-10">
+        <div className="container mx-auto px-4 py-4">
           <div className="flex items-center justify-between">
             <div className="flex items-center space-x-3">
-              <button 
+              <button
                 onClick={handleLogout}
-                className="w-10 h-10 bg-white/20 rounded-full flex items-center justify-center hover:bg-white/30 transition-colors"
+                className="w-9 h-9 bg-gray-100 rounded-full flex items-center justify-center hover:bg-gray-200 transition-colors"
                 title="Back to Role Selection"
               >
-                <ArrowLeft className="w-6 h-6 text-white" />
+                <ArrowLeft className="w-5 h-5 text-gray-600" />
               </button>
-              <div className="w-10 h-10 bg-white rounded-full flex items-center justify-center shadow-md">
-                <Shield className="w-6 h-6 text-[#2EC4B6]" />
-              </div>
-              <div className="text-white">
-                <h1 className="text-xl font-bold">VacciTrack</h1>
-                <p className="text-xs text-white/80">Family Health Guardian</p>
+              <div className="flex items-center space-x-2">
+                <div className="w-9 h-9 bg-[#2F80ED] rounded-xl flex items-center justify-center shadow-md">
+                  <Shield className="w-5 h-5 text-white" />
+                </div>
+                <div>
+                  <h1 className="text-lg font-bold text-[#1a2b4a] leading-tight">VacciCare</h1>
+                  <p className="text-[10px] text-[#27AE60] font-semibold leading-tight">Family Health Guardian</p>
+                </div>
               </div>
             </div>
 
             <div className="flex items-center space-x-2">
-               {activeView === 'home' && familyMembers.length > 0 && (
+              {activeView === 'home' && familyMembers.length > 0 && (
                 <button
                   onClick={() => setShowAddMember(true)}
-                  className="bg-white/20 hover:bg-white/30 text-white p-2 rounded-full backdrop-blur-sm transition-all"
+                  className="bg-[#2F80ED] hover:bg-[#2568c5] text-white p-2 rounded-full shadow-md transition-all"
                 >
-                  <Plus className="w-6 h-6" />
+                  <Plus className="w-5 h-5" />
                 </button>
               )}
             </div>
           </div>
-          
+
           {/* Family Member Selector (visible on Home and Schedule) */}
           {(activeView === 'home' || activeView === 'schedule') && (
-            <div className="mt-6">
+            <div className="mt-4">
               <FamilyMemberSelector onAddMember={() => setShowAddMember(true)} />
             </div>
           )}
@@ -194,7 +196,7 @@ function App() {
                 {/* Left Column */}
                 <div className="space-y-6">
                   <VaccinationProgress />
-                  
+
                   {/* Illustration for Child Care */}
                   <div className="bg-white rounded-[20px] p-6 shadow-sm border border-gray-100 flex items-center space-x-4">
                     <div className="w-16 h-16 bg-[#4CC9F0]/10 rounded-full flex items-center justify-center flex-shrink-0">
@@ -220,7 +222,7 @@ function App() {
                   <Shield className="w-12 h-12 text-[#2EC4B6]" />
                 </div>
                 <h2 className="text-2xl font-bold text-gray-800 mb-2">
-                  Welcome to VacciTrack
+                  Welcome to VacciCare
                 </h2>
                 <p className="text-gray-500 mb-8 max-w-xs mx-auto">
                   No records yet — add your first family member to start tracking!

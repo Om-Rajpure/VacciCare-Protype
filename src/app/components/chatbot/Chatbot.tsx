@@ -101,7 +101,7 @@ export function Chatbot() {
                   <Bot className="w-5 h-5 text-white" />
                 </div>
                 <div>
-                  <h3 className="text-white font-bold text-base">VacciTrack Assistant</h3>
+                  <h3 className="text-white font-bold text-base">VacciCare Assistant</h3>
                   <div className="flex items-center space-x-1">
                     <div className="w-2 h-2 bg-green-300 rounded-full" />
                     <p className="text-white/80 text-xs">AI Vaccine Advisor</p>

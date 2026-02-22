@@ -9,11 +9,11 @@ import { format } from 'date-fns';
 export function VaccinationCard() {
   const cardRef = useRef<HTMLDivElement>(null);
   const [qrCodeUrl, setQrCodeUrl] = useState('');
-  
+
   const selectedMemberId = useStore(state => state.selectedMemberId);
   const member = useStore(state => state.familyMembers.find(m => m.id === state.selectedMemberId));
   const allVaccines = useStore(state => state.vaccines);
-  
+
   // Memoize completed vaccines for the selected member
   const completedVaccines = useMemo(() => {
     return allVaccines.filter(v => v.memberId === selectedMemberId && v.status === 'completed');
@@ -118,28 +118,59 @@ export function VaccinationCard() {
 
         <div className="space-y-3 max-h-96 overflow-y-auto">
           <h3 className="font-semibold text-gray-800 mb-3">Vaccination History</h3>
-          
+
           {completedVaccines.length === 0 ? (
             <div className="text-center py-8 text-gray-500">
               <Clock className="w-12 h-12 mx-auto mb-2 text-gray-300" />
               <p>No vaccinations completed yet</p>
             </div>
           ) : (
-            completedVaccines.map((vaccine) => (
-              <div key={vaccine.id} className="flex items-center justify-between p-3 bg-green-50 border border-green-200 rounded-lg">
-                <div className="flex items-center space-x-3">
-                  <CheckCircle className="w-5 h-5 text-green-600 flex-shrink-0" />
-                  <div>
-                    <p className="text-sm font-medium text-gray-800">{vaccine.vaccineName}</p>
-                    {vaccine.completedDate && (
-                      <p className="text-xs text-gray-500">
-                        {format(new Date(vaccine.completedDate), 'dd MMM yyyy')}
-                      </p>
+            completedVaccines.map((vaccine) => {
+              // Delay calculation
+              const dueDate = vaccine.dueDate ? new Date(vaccine.dueDate) : null;
+              const takenDate = vaccine.completedDate ? new Date(vaccine.completedDate) : null;
+              const delayDays =
+                dueDate && takenDate
+                  ? Math.ceil((takenDate.getTime() - dueDate.getTime()) / (1000 * 60 * 60 * 24))
+                  : null;
+
+              const delayBadge =
+                delayDays === null
+                  ? null
+                  : delayDays <= 0
+                    ? { label: 'On Time', classes: 'bg-green-100 text-green-700 border border-green-200' }
+                    : delayDays <= 7
+                      ? { label: `Taken ${delayDays} day${delayDays > 1 ? 's' : ''} late`, classes: 'bg-orange-100 text-orange-700 border border-orange-200' }
+                      : { label: `Taken ${delayDays} days late`, classes: 'bg-red-100 text-red-700 border border-red-200' };
+
+              return (
+                <div key={vaccine.id} className="p-3 bg-white border border-gray-100 rounded-xl shadow-sm hover:shadow-md transition-shadow">
+                  <div className="flex items-start justify-between gap-2">
+                    <div className="flex items-start space-x-3 flex-1 min-w-0">
+                      <CheckCircle className="w-5 h-5 text-green-600 flex-shrink-0 mt-0.5" />
+                      <div className="min-w-0 flex-1">
+                        <p className="text-sm font-semibold text-gray-800 leading-tight truncate">{vaccine.vaccineName}</p>
+                        {dueDate && (
+                          <p className="text-[11px] text-gray-400 mt-0.5">
+                            Due: {format(dueDate, 'dd MMM yyyy')}
+                          </p>
+                        )}
+                        {vaccine.completedDate && (
+                          <p className="text-[11px] text-gray-500 mt-0.5">
+                            Taken: {format(new Date(vaccine.completedDate), 'dd MMM yyyy')}
+                          </p>
+                        )}
+                      </div>
+                    </div>
+                    {delayBadge && (
+                      <span className={`text-[10px] font-semibold px-2 py-1 rounded-full whitespace-nowrap flex-shrink-0 ${delayBadge.classes}`}>
+                        {delayBadge.label}
+                      </span>
                     )}
                   </div>
                 </div>
-              </div>
-            ))
+              );
+            })
           )}
         </div>
       </div>

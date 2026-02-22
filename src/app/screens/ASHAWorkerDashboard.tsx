@@ -1,9 +1,8 @@
 import { useState, useMemo } from 'react';
-import { useNavigate } from 'react-router';
 import { useStore } from '../store/useStore';
 import {
   User, MapPin, Phone, Shield, Plus, X, Save,
-  Users, Calendar, CheckCircle, AlertCircle, Edit2, Trash2, Filter, Navigation, ArrowLeft,
+  Users, CheckCircle, AlertCircle, Edit2, Trash2, Filter, Navigation,
   TrendingUp, Home, Star, Clock
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
@@ -128,7 +127,6 @@ const urgencyConfig = {
 };
 
 export function ASHAWorkerDashboard() {
-  const navigate = useNavigate();
   const [activeView, setActiveView] = useState<ASHAView>('profile');
   const [isEditing, setIsEditing] = useState(false);
   const [showAddClient, setShowAddClient] = useState(false);
@@ -143,8 +141,8 @@ export function ASHAWorkerDashboard() {
   const logout = useStore(state => state.logout);
 
   const handleLogout = () => {
+    // Just call logout — App.tsx watches the store and will return to login automatically
     logout();
-    navigate('/onboarding');
   };
 
   const ashaProfile = currentUser?.ashaProfile;
@@ -247,49 +245,49 @@ export function ASHAWorkerDashboard() {
   return (
     <div className="min-h-screen bg-[#F7FBFF] pb-24">
       {/* Header */}
-      <header className="bg-gradient-to-r from-green-700 to-teal-500 shadow-lg rounded-b-[2rem] relative z-10">
-        <div className="container mx-auto px-4 py-6">
+      <header className="bg-white border-b border-gray-100 shadow-sm relative z-10">
+        <div className="container mx-auto px-4 py-4">
           <div className="flex items-center justify-between">
             <div className="flex items-center space-x-3">
               <button
                 onClick={handleLogout}
-                className="w-10 h-10 bg-white/20 rounded-full flex items-center justify-center hover:bg-white/30 transition-colors"
+                className="w-9 h-9 bg-gray-100 rounded-full flex items-center justify-center hover:bg-gray-200 transition-colors"
                 title="Logout"
               >
-                <ArrowLeft className="w-6 h-6 text-white" />
+                <X className="w-5 h-5 text-gray-600" />
               </button>
-              <div className="flex items-center space-x-3">
-                <div className="w-10 h-10 bg-white rounded-full flex items-center justify-center shadow-md">
-                  <Shield className="w-6 h-6 text-green-600" />
+              <div className="flex items-center space-x-2">
+                <div className="w-9 h-9 bg-[#2F80ED] rounded-xl flex items-center justify-center shadow-md">
+                  <Shield className="w-5 h-5 text-white" />
                 </div>
-                <div className="text-white">
-                  <h1 className="text-xl font-bold">VacciTrack</h1>
-                  <p className="text-xs text-white/80">ASHA Worker Dashboard</p>
+                <div>
+                  <h1 className="text-lg font-bold text-[#1a2b4a] leading-tight">VacciCare</h1>
+                  <p className="text-[10px] text-[#27AE60] font-semibold leading-tight">ASHA Worker Dashboard</p>
                 </div>
               </div>
             </div>
             {ashaProfile?.name && (
-              <div className="text-right text-white">
-                <p className="text-xs text-white/70">Logged in as</p>
-                <p className="text-sm font-semibold">{ashaProfile.name}</p>
+              <div className="text-right">
+                <p className="text-xs text-gray-400">Logged in as</p>
+                <p className="text-sm font-semibold text-gray-700">{ashaProfile.name}</p>
               </div>
             )}
           </div>
 
           {/* Tab Navigation */}
-          <div className="mt-6 flex space-x-2">
+          <div className="mt-4 flex space-x-2">
             <button
               onClick={() => setActiveView('profile')}
-              className={`px-4 py-2 rounded-lg font-medium transition-all ${activeView === 'profile' ? 'bg-white text-green-700' : 'bg-white/20 text-white hover:bg-white/30'}`}
+              className={`px-4 py-2 rounded-lg font-medium transition-all text-sm ${activeView === 'profile' ? 'bg-[#2F80ED] text-white' : 'bg-gray-100 text-gray-600 hover:bg-gray-200'}`}
             >
               <User className="w-4 h-4 inline-block mr-2" />Profile
             </button>
             <button
               onClick={() => setActiveView('clients')}
-              className={`px-4 py-2 rounded-lg font-medium transition-all ${activeView === 'clients' ? 'bg-white text-green-700' : 'bg-white/20 text-white hover:bg-white/30'}`}
+              className={`px-4 py-2 rounded-lg font-medium transition-all text-sm ${activeView === 'clients' ? 'bg-[#2F80ED] text-white' : 'bg-gray-100 text-gray-600 hover:bg-gray-200'}`}
             >
               <Users className="w-4 h-4 inline-block mr-2" />Clients
-              <span className="ml-2 bg-white/30 text-white text-xs px-1.5 py-0.5 rounded-full">{totalClients}</span>
+              <span className={`ml-2 text-xs px-1.5 py-0.5 rounded-full ${activeView === 'clients' ? 'bg-white/30 text-white' : 'bg-gray-200 text-gray-600'}`}>{totalClients}</span>
             </button>
           </div>
         </div>

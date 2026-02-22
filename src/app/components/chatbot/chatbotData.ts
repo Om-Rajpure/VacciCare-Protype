@@ -206,7 +206,7 @@ interface ResponsePattern {
 const defaultResponses: ResponsePattern[] = [
   {
     keywords: ['hello', 'hi', 'hey', 'greetings', 'good morning', 'good evening'],
-    response: "Hello! I am your VacciTrack health assistant. I can help you with: Vaccine information and schedules. Side effects and home care. Finding vaccination centers. Catch-up vaccination. Painless vs standard vaccines. General health questions. What would you like to know?"
+    response: "Hello! I am your VacciCare health assistant. I can help you with: Vaccine information and schedules. Side effects and home care. Finding vaccination centers. Catch-up vaccination. Painless vs standard vaccines. General health questions. What would you like to know?"
   },
   {
     keywords: ['help', 'what can you do', 'capabilities', 'assist', 'support'],
@@ -226,7 +226,7 @@ const defaultResponses: ResponsePattern[] = [
   },
   {
     keywords: ['who are you', 'what are you', 'your name'],
-    response: "I am the VacciTrack Assistant, designed to help you with: Vaccination information. Health symptom guidance. Scheduling questions. Healthcare resources. I am here to make vaccination easy to understand!"
+    response: "I am the VacciCare Assistant, designed to help you with: Vaccination information. Health symptom guidance. Scheduling questions. Healthcare resources. I am here to make vaccination easy to understand!"
   }
 ];
 
@@ -467,7 +467,7 @@ const healthcareResponses: ResponsePattern[] = [
   },
   {
     keywords: ['center', 'clinic', 'hospital', 'nearby', 'location', 'where to get', 'find'],
-    response: "Vaccination Centers: " + vaccinationCenters.slice(0, 5).map(c => 
+    response: "Vaccination Centers: " + vaccinationCenters.slice(0, 5).map(c =>
       c.name + " - " + c.area + ", " + c.city + ". Rating: " + c.rating + ". Phone: " + c.phone + ". Timings: " + c.timings
     ).join(". ") + ". You can search online for more centers near you or check with your local government health center."
   },
@@ -490,7 +490,7 @@ const healthcareResponses: ResponsePattern[] = [
 // Function to get response based on user input
 export function getBotResponse(userMessage: string): string {
   const message = userMessage.toLowerCase();
-  
+
   // Combine all response patterns
   const allPatterns: ResponsePattern[] = [
     ...defaultResponses,
@@ -498,7 +498,7 @@ export function getBotResponse(userMessage: string): string {
     ...sideEffectResponses,
     ...healthcareResponses
   ];
-  
+
   // Find matching pattern
   for (const pattern of allPatterns) {
     for (const keyword of pattern.keywords) {
@@ -511,14 +511,14 @@ export function getBotResponse(userMessage: string): string {
       }
     }
   }
-  
+
   // Default fallback response with helpful suggestions
   return "I am here to help with vaccination and health questions. You can ask me about: Vaccines - Individual vaccines (BCG, DPT, MMR, etc.), Vaccination schedules, Missed vaccines and catch-up. Side Effects - Fever management, Pain and swelling, Rash, diarrhea, vomiting. Healthcare - Pre/post vaccination care, Finding vaccination centers, Breastfeeding and bathing. What would you like to know?";
 }
 
 export const welcomeMessage: Message = {
   id: 'welcome',
-  text: "Hello! I am your VacciTrack Assistant. I can help you with: Vaccines and Schedules. Side Effects and Care. Healthcare Precautions. Finding Centers. How can I help you today?",
+  text: "Hello! I am your VacciCare Assistant. I can help you with: Vaccines and Schedules. Side Effects and Care. Healthcare Precautions. Finding Centers. How can I help you today?",
   sender: 'bot',
   timestamp: new Date()
 };
