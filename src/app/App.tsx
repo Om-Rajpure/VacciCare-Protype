@@ -18,10 +18,17 @@ import { RemindersList } from './components/reminders/RemindersList';
 import { Navigation } from './components/layout/Navigation';
 import { Chatbot } from './components/chatbot/Chatbot';
 import { ASHAWorkerDashboard } from './screens/ASHAWorkerDashboard';
-import { Shield, Bell, Plus, Heart, ArrowLeft, LogOut } from 'lucide-react';
+import IntroSplashScreen from './screens/IntroSplashScreen';
+import { Shield, Bell, Plus, Heart, ArrowLeft } from 'lucide-react';
 
 function App() {
   const navigate = useNavigate();
+
+  // Show intro animation only once per browser session (not on HMR reloads)
+  const [showIntro, setShowIntro] = useState<boolean>(() => {
+    return !sessionStorage.getItem('vaccicare_intro_played');
+  });
+
   const [authView, setAuthView] = useState<'login' | 'signup' | 'role_selection'>('login');
   const [activeView, setActiveView] = useState<'home' | 'schedule' | 'centers' | 'education' | 'reminders' | 'profile'>('home');
   const [showAddMember, setShowAddMember] = useState(false);
@@ -96,6 +103,18 @@ function App() {
       setNotificationPermission(permission);
     }
   };
+
+  // ── Intro animation gate (once per browser session) ──
+  if (showIntro) {
+    return (
+      <IntroSplashScreen
+        onComplete={() => {
+          sessionStorage.setItem('vaccicare_intro_played', '1');
+          setShowIntro(false);
+        }}
+      />
+    );
+  }
 
   // Not logged in
   if (!currentUser) {

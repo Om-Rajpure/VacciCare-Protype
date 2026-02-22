@@ -1,4 +1,5 @@
 import { createBrowserRouter } from "react-router";
+import IntroSplashScreen from "./screens/IntroSplashScreen";
 import SplashScreen from "./screens/SplashScreen";
 import OnboardingScreen from "./screens/OnboardingScreen";
 import LoginScreen from "./screens/LoginScreen";
@@ -14,7 +15,13 @@ import ProfileScreen from "./screens/ProfileScreen";
 
 export const router = createBrowserRouter([
   {
+    // Entry point: 4-step animated brand intro (~3s) → then /onboarding
     path: "/",
+    Component: IntroSplashScreen,
+  },
+  {
+    // Legacy brand splash (kept for direct navigation if needed)
+    path: "/splash",
     Component: SplashScreen,
   },
   {
